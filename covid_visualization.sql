@@ -1,3 +1,4 @@
+-- choose the db
 use Portfolio;
 
 select count(*) 
@@ -19,7 +20,6 @@ order by 1,2 desc
 limit 5;
 
 -- total cases vs total deaths
-
 select Location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as death_percentage
 from coviddeaths
 order by 1,2
@@ -31,8 +31,7 @@ where location like '%India'
 order by 1,2
 
 -- looking at the total cases Vs Population
--- likelihood of you being infeccted considering the country you populate in
-
+-- likelihood of you being infeccted considering the country you live in
 select Location, date, total_cases, population, (total_cases/population)*100 as infected_percentage
 from coviddeaths
 where location like '%India'
@@ -40,7 +39,6 @@ order by 1,2
 
 
 -- looking at countries with highest infected rate
-
 select Location, Population, Max(total_cases), Max((total_cases/population))*100 as infected_percentage
 from coviddeaths
 where location not like '%World' 
@@ -65,7 +63,6 @@ group by location
 order by 2 desc
 
 -- get the global view for new cases / new deaths and the death percentage
-
 select date, sum(new_cases) new_cases, sum(cast(new_deaths as double)) as new_death, (sum(cast(new_deaths as double))/sum(new_cases))*100 as death_percent_per_day
 from coviddeaths
 where continent <> ""
@@ -73,18 +70,15 @@ group by date
 order by date
 
 -- total death percentage for the new cases
-
 select sum(new_cases) new_cases, sum(cast(new_deaths as double)) as new_death, (sum(cast(new_deaths as double))/sum(new_cases))*100 as death_percent_per_day
 from coviddeaths
 where continent <> ""
 # overall in the world we are looking at a death percentage of 1% in the above query
 
 -- covid vaccinations
-
 select * from covidvaccinations
 
 -- total vaccinations world wide
-
 select cd.continent, cd.location, cd.date, cd.population, cv.new_vaccinations , 
 sum(convert(cv.new_vaccinations, double)) over (partition by cv.location order by cv.location, cv.date) vaccination_rolling
 from coviddeaths cd
@@ -134,7 +128,7 @@ join
 select *, rolling_vaccinations/population*100 as vaccination_percentage
 from percentPopulationVaccinated;
 
--- creating a view for the same.
+-- creating a view.
 create view percentPopulationVaccinated as
 select cd.continent, cd.location, cd.date, cd.population, cast(cv.new_vaccinations as double), 
 sum(convert(cv.new_vaccinations, double)) over (partition by cv.location order by cv.location, cv.date) rolling_vaccinations
