@@ -4,7 +4,7 @@ Softwares Used: Excel, MySQL, Github, Youtube, PhpStorm.
 
 This projects focuses on exploring the data in sql.
 
-Project Dataset: https://ourworldindata.org/covid-deaths
+Covid Project Dataset: https://ourworldindata.org/covid-deaths
 
 Steps Involved in creating final tables in SQL(Customized):
 - download the dataset from the above link.
