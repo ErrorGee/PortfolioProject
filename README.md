@@ -42,7 +42,7 @@ Used housing dataset for DATA CLEANING:
 
                         
 
-Tableau project for data visualizations
+Tableau project for DATA VISUALIZATION
 
 
                    Softwares Used: Excel, MySQL, Github, Youtube, tableau
